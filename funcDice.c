@@ -33,6 +33,15 @@ int winnerCheck(){
     }
 }
 
+void printWinner(){
+    if(winner==1){
+        printf("Players 0 & 2 are the winners\n");
+    }
+    if(winner==2){
+        printf("Players 1 & 3 are the winners\n");
+    }
+}
+
 int diceRoll(){
     int dice1, dice2, roll = 0;
     //randomize(); //this cant go here
@@ -66,6 +75,7 @@ void dealer(){
                 break;
             }
         }
+        printf("\n");
         whileCount++;
         for(int i=0;i<4;i++){
             printf("player%i: %i\n", i, players[i][0]);
@@ -73,12 +83,15 @@ void dealer(){
     }
 
     printf("*************************\n");
-    printf("loop finished\n");
+    printf("\n");
+    printf("final rolls\n");
     for(int i=0;i<4;i++){
+
         printf("player%i: %i\n", i, players[i][0]);
     }
     printf("forCount: %i\n", forCount);
     printf("whileCount: %i\n", whileCount);
+    printWinner();
 
 
 }
