@@ -65,7 +65,6 @@ void dealer(){
     int test = 0;
     int forCount = 0;
     int whileCount = 0;
-    printf("forCount before: %i\n", forCount);
     while(winner == 0){
         for(int i=0;i<4;i++){
             players[i][0] = diceRoll();
