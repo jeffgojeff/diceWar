@@ -1,9 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <pthread.h>
+#include <unistd.h>
 
 
 //global vars
+
+pthread_cond_t cond1= PTHREAD_COND_INITIALIZER;
+pthread_cond_t cond2= PTHREAD_COND_INITIALIZER;
+
+pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+
+
+
 int winner = 0;
 
 int players[4][1];
@@ -100,6 +110,8 @@ void dealer(){
 int main(){
     randomize();
     init();
+
+    pthread_t dealerThread, playerThread[4]; 
 
     dealer();
 
