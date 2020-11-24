@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <pthread.h>
+#include <semaphore.h>
 
 
 //global variables
@@ -9,15 +10,19 @@
 pthread_cond_t cond1 = PTHREAD_COND_INITIALIZER;
 pthread_cond_t cond2 = PTHREAD_COND_INITIALIZER;
 
-pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+//pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
-int winner = 0;
+sem_t mutex;
+
+int winner, turn = 0;
+int playersArray[4];
 
 struct player{
     int sum;
+    int playerId;
 };
 
-struct player playersArray[4];
+
 
 
 
@@ -51,16 +56,21 @@ void *player(void *addr){
 
     struct player *playerStruct;
     playerStruct = (struct player *) addr;
+    playerStruct->playerId = *((int *) addr);
     playerStruct->sum = diceRoll();
-
     
+
+    /*
     while(winner == 0){
         pthread_cond_wait(&cond1, &mutex);
         playerStruct->sum = diceRoll();
     }
     //playerStruct->sum = diceRoll();
+    */
     printf("sum: %i\n", playerStruct->sum);
-    
+    printf("id: %i\n", playerStruct->playerId);
+    printf("sum2: %i\n", playerStruct->sum);
+
     return NULL;
 }
 
@@ -77,6 +87,7 @@ void *dealer(void *arg){
     printf("test: %i\n", playerA->sum);
     printf("test2: %i\n", playerB->sum);
 
+    /*
 
     while(winner == 0){
 
@@ -94,6 +105,7 @@ void *dealer(void *arg){
         }
 
     }
+    */
 
     
     return NULL;
@@ -118,6 +130,7 @@ int main(){
     randomize(); //need for new numbers each time is run
 
     for(int i=0; i<4; i++){
+        playersArray[i]=i;
         pthread_create(&playersThread[i], NULL, player, (void *) &playersArray[i]); //last arg is for function
         pthread_join(playersThread[i], &status);
     }
