@@ -50,7 +50,7 @@ void *playerThread(void *arg) {
    int dice1,dice2 = 0;
 
    while(loop == 1){
-       sem_wait(&mutex);
+       pthread_cond_wait(&winner_var, &mutex);
        //check for winner
        if(winner==1){
            turn=(turn+1)%4;
