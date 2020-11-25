@@ -1,3 +1,12 @@
+/**********************************\
+ * Jeffrey C. Slocum
+ * 
+ * Mina Guirguis Project #2
+ * Matching Dice Game
+ * 
+ * 
+/**********************************/
+
 #include <stdio.h>
 #include <pthread.h>
 #include <semaphore.h>
@@ -128,7 +137,7 @@ int main()
     //reseed the rand number for different numbers each time run
     randomize();
     //open file to write logs to
-    fp = fopen("LogOutput.txt", "a");
+    fp = fopen("logOutput.txt", "a");
 
     //initialize mutex and semaphore
     pthread_cond_init(&winner_var, NULL);
